@@ -168,9 +168,9 @@
             <ul>
                 <li>Modify the file paths in the script to match your system's directory structure:</li>
                 <div class="file-path">
-                    file_path = r"C:\Users\Dean\Documents\pyScripts\profanityChecker\websitesURL.csv"<br>
+                    file_path = r"C:\filePATH\Documents\pyScripts\profanityChecker\websitesURL.csv"<br>
                     # And in the check_website_profanity function:<br>
-                    r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt"
+                    r"C:\filePATH\Documents\pyScripts\profanityChecker\profanityCheckResults.txt"
                 </div>
             </ul>
         </li>
@@ -225,22 +225,22 @@ def check_website_profanity(url):
         else:
             result = f"No profanity found on {url}.\n"
         # Log results to a file
-        with open(r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
+        with open(r"C:\filePATH\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
             logfile.write(result)
     except requests.exceptions.HTTPError as http_err:
         # Handle specific HTTP errors
         print(f"HTTP error occurred: {http_err}")
-        with open(r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
+        with open(r"C:\filePATH\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
             logfile.write(f"HTTP error encountered for {url}: {http_err}\n")
     except requests.exceptions.RequestException as e:
         # Handle other request exceptions
         print(f"Error accessing {url}: {e}")
-        with open(r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
+        with open(r"C:\filePATH\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
             logfile.write(f"Error accessing {url}: {e}\n")
     except Exception as e:
         # General exception handling
         print(f"An unexpected error occurred: {e}")
-        with open(r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
+        with open(r"C:\filePATH\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
             logfile.write(f"An unexpected error occurred for {url}: {e}\n")
 
 def process_urls_from_csv(filepath):
@@ -266,7 +266,7 @@ def process_urls_from_csv(filepath):
         print(f"An unexpected error occurred: {e}")
 
 if __name__ == "__main__":
-    file_path = r"C:\Users\Dean\Documents\pyScripts\profanityChecker\websitesURL.csv"  # Raw string for Windows paths.
+    file_path = r"C:\filePATH\Documents\pyScripts\profanityChecker\websitesURL.csv"  # Raw string for Windows paths.
     process_urls_from_csv(file_path)</code></pre>
     
     <h2>How It Works</h2>
