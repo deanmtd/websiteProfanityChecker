@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Profanity Checker</title>
+    <style>
+        :root {
+            --python-blue: #306998;
+            --python-yellow: #FFD43B;
+            --python-dark-blue: #1c4163;
+            --python-light-yellow: #fffae5;
+            --code-bg: #f0f4f8;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        h1, h2, h3 {
+            color: var(--python-dark-blue);
+        }
+        
+        h1 {
+            border-bottom: 4px solid var(--python-yellow);
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--python-yellow);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            background-color: var(--code-bg);
+            border-radius: 3px;
+            padding: 2px 4px;
+            color: var(--python-dark-blue);
+        }
+        
+        pre {
+            background-color: var(--code-bg);
+            border-radius: 6px;
+            padding: 16px;
+            overflow: auto;
+            border-left: 4px solid var(--python-blue);
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .csv-example {
+            font-family: monospace;
+            white-space: pre;
+            background-color: var(--python-light-yellow);
+            border: 1px solid var(--python-yellow);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        strong {
+            color: var(--python-dark-blue);
+        }
+        
+        .note {
+            background-color: var(--python-light-yellow);
+            border-left: 4px solid var(--python-yellow);
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .warning {
+            background-color: #fff3f3;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .file-path {
+            font-family: monospace;
+            background-color: var(--code-bg);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        .step {
+            background-color: var(--python-blue);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Website Profanity Checker</h1>
+    
+    <h2>Purpose</h2>
+    
+    <p>
+        This Python script scans websites for profanity by analyzing their content. It's designed to help content moderators, 
+        educational institutions, and businesses ensure their linked resources are appropriate and free from offensive language.
+        The script processes multiple URLs from a CSV file, checks each website's content for profanity, and logs the results.
+    </p>
+    
+    <div class="note">
+        <strong>Note:</strong> This tool is intended for professional content auditing purposes only.
+    </div>
+    
+    <h2>Prerequisites</h2>
+    
+    <ul>
+        <li>Python 3.x installed</li>
+        <li>Required packages:
+            <ul>
+                <li><code>requests</code> - For making HTTP requests</li>
+                <li><code>beautifulsoup4</code> - For parsing HTML content</li>
+                <li><code>better_profanity</code> - For detecting profanity</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <div class="note">
+        <strong>Installation:</strong> Install the required packages using pip:
+        <pre><code>pip install requests beautifulsoup4 better_profanity</code></pre>
+    </div>
+    
+    <h2>How To Use</h2>
+    
+    <ol>
+        <li>
+            <span class="step">1</span><strong>Prepare the Input File:</strong>
+            <ul>
+                <li>Create a CSV file named <code>websitesURL.csv</code></li>
+                <li>Input a list of URLs required for profanity checks</li>
+                <li>Each URL should be separated with a comma (,) in the CSV file</li>
+                <li>Example CSV content:</li>
+            </ul>
+            <pre class="csv-example">https://example.com,https://example.org,https://sample-site.net</pre>
+        </li>
+        <li>
+            <span class="step">2</span><strong>Configure File Paths:</strong>
+            <ul>
+                <li>Modify the file paths in the script to match your system's directory structure:</li>
+                <div class="file-path">
+                    file_path = r"C:\Users\Dean\Documents\pyScripts\profanityChecker\websitesURL.csv"<br>
+                    # And in the check_website_profanity function:<br>
+                    r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt"
+                </div>
+            </ul>
+        </li>
+        <li>
+            <span class="step">3</span><strong>Run the Script:</strong>
+            <ul>
+                <li>Open a terminal or command prompt</li>
+                <li>Navigate to the directory containing the script</li>
+                <li>Run the script using:</li>
+            </ul>
+            <pre><code>python profanity_checker.py</code></pre>
+        </li>
+        <li>
+            <span class="step">4</span><strong>Check the Results:</strong>
+            <ul>
+                <li>Open the output file <code>profanityCheckResults.txt</code> to view the results</li>
+                <li>The file will indicate whether profanity was found on each site or if any errors occurred</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <h2>Script Code</h2>
+    
+    <pre><code>import requests
+from bs4 import BeautifulSoup
+from better_profanity import Profanity
+import csv
+
+def check_website_profanity(url):
+    """
+    Checks a website for profanity.
+    
+    Args:
+        url (str): The URL of the website to check.
+    """
+    
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()  # Raise an error for bad responses
+        soup = BeautifulSoup(response.content, "html.parser")
+        text = soup.get_text(separator=' ', strip=True)
+        # Create an instance of Profanity and load default profanity words
+        pf = Profanity()
+        pf.load_censor_words()  # Load the default censor words
+        
+        # Censor the text and check if any changes were made
+        censored_text = pf.censor(text)
+        
+        # Prepare the result message
+        if text != censored_text:
+            result = f"Profanity found on {url}.\n"
+        else:
+            result = f"No profanity found on {url}.\n"
+        # Log results to a file
+        with open(r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
+            logfile.write(result)
+    except requests.exceptions.HTTPError as http_err:
+        # Handle specific HTTP errors
+        print(f"HTTP error occurred: {http_err}")
+        with open(r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
+            logfile.write(f"HTTP error encountered for {url}: {http_err}\n")
+    except requests.exceptions.RequestException as e:
+        # Handle other request exceptions
+        print(f"Error accessing {url}: {e}")
+        with open(r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
+            logfile.write(f"Error accessing {url}: {e}\n")
+    except Exception as e:
+        # General exception handling
+        print(f"An unexpected error occurred: {e}")
+        with open(r"C:\Users\Dean\Documents\pyScripts\profanityChecker\profanityCheckResults.txt", "a") as logfile:
+            logfile.write(f"An unexpected error occurred for {url}: {e}\n")
+
+def process_urls_from_csv(filepath):
+    """
+    Processes URLs from a CSV file.
+    
+    Args:
+        filepath (str): The path to the CSV file.
+    """
+    try:
+        with open(filepath, 'r', newline='', encoding='utf-8') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                for url in row:
+                    url = url.strip()  # Remove leading/trailing whitespace
+                    if url:  # Check if URL is not empty
+                        check_website_profanity(url)
+    except FileNotFoundError:
+        print(f"Error: CSV file not found at {filepath}")
+    except csv.Error as e:
+        print(f"Error parsing CSV file: {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+if __name__ == "__main__":
+    file_path = r"C:\Users\Dean\Documents\pyScripts\profanityChecker\websitesURL.csv"  # Raw string for Windows paths.
+    process_urls_from_csv(file_path)</code></pre>
+    
+    <h2>How It Works</h2>
+    
+    <ol>
+        <li>The script reads URLs from the specified CSV file</li>
+        <li>For each URL, it:
+            <ul>
+                <li>Makes an HTTP request to fetch the webpage content</li>
+                <li>Parses the HTML to extract readable text</li>
+                <li>Checks the text for profanity using the better_profanity library</li>
+                <li>Logs the results in the output file</li>
+            </ul>
+        </li>
+        <li>Error handling is implemented for various scenarios:
+            <ul>
+                <li>HTTP errors (bad responses, timeouts)</li>
+                <li>Network connectivity issues</li>
+                <li>File access problems</li>
+                <li>Other unexpected errors</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <h2>Customization Options</h2>
+    
+    <ul>
+        <li>
+            <strong>Custom Profanity List:</strong> You can customize the profanity detection by adding your own list of words:
+            <pre><code>pf = Profanity()
+custom_words = ["word1", "word2", "word3"]
+pf.load_censor_words(custom_badwords=custom_words)</code></pre>
+        </li>
+        <li>
+            <strong>Change Timeout:</strong> Modify the request timeout value (currently 10 seconds) based on your needs:
+            <pre><code>response = requests.get(url, timeout=15)  # Increase to 15 seconds</code></pre>
+        </li>
+        <li>
+            <strong>Output Format:</strong> Change the output file format or structure by modifying the log writing code.
+        </li>
+    </ul>
+    
+    <div class="warning">
+        <strong>Warning:</strong> This script performs network requests to external websites. Use responsibly and ensure you have permission to scan the websites you're checking.
+    </div>
+    
+    <h2>Troubleshooting</h2>
+    
+    <ul>
+        <li><strong>CSV File Not Found:</strong> Verify the file path is correct and the file exists.</li>
+        <li><strong>Connection Errors:</strong> Check your internet connection or if the website is blocking automated requests.</li>
+        <li><strong>Permission Errors:</strong> Ensure you have write permissions for the output file location.</li>
+        <li><strong>Package Not Found Errors:</strong> Verify all required packages are installed using pip.</li>
+    </ul>
+</body>
+</html>
